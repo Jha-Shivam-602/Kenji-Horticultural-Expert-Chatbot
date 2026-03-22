@@ -6,9 +6,9 @@ A purpose-built, highly polished conversational application providing expert adv
 
 This project focuses heavily on "Frontend Thinking," replacing generic chat wrapper templates with a highly considered, zero-fluff SaaS chat UI. The AI persona is deeply restricted to sound like a human expert, bringing authentic expertise to your plant questions.
 
-![Empty State](./public/empty-state.png)
+![Empty State](./public/empty-state.png.png)
 
-![Chat Interface](./public/chat-interface.png)
+![Chat Interface](./public/chat.png)
 
 ## Core Features and UX Details
 

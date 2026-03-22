@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const router = useRouter();
   return (
     <div style={{
       display: 'flex',
@@ -38,7 +40,10 @@ export default function LoginPage() {
         <h1 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Welcome back</h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>Log in to your account</p>
 
-        <form style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1rem' }} onSubmit={e => e.preventDefault()}>
+        <form style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1rem' }} onSubmit={e => {
+          e.preventDefault();
+          router.push('/dashboard');
+        }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-main)' }}>Email</label>
             <input 

@@ -3,8 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Leaf } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
+  const router = useRouter();
   return (
     <div style={{
       display: 'flex',
@@ -43,7 +45,10 @@ export default function SignupPage() {
         <h1 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Create an account</h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>Get personalized expert plant care advice</p>
 
-        <form style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1rem' }} onSubmit={e => e.preventDefault()}>
+        <form style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1rem' }} onSubmit={e => {
+          e.preventDefault();
+          router.push('/dashboard');
+        }}>
           <div style={{ display: 'flex', gap: '1rem' }}>
              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', flex: 1 }}>
               <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-main)' }}>Name</label>
