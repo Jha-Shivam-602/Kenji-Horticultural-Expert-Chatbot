@@ -1,5 +1,4 @@
-import { openai } from '@ai-sdk/openai';
-import { streamText, Message } from 'ai';
+import { Message } from 'ai';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -17,13 +16,25 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    const result = await streamText({
-      model: openai('gpt-4o'),
-      system: systemPrompt,
-      messages: messages as Message[],
+    const encoder = new TextEncoder();
+    const customStream = new ReadableStream({
+      async start(controller) {
+        const text = "The OpenAI API has been disabled as requested. This is a local mock response from Master Kenji. I am still here to help with your plant care needs, without hitting any external APIs!";
+        const chunks = text.split(' ');
+        for (let i = 0; i < chunks.length; i++) {
+          controller.enqueue(encoder.encode(`0:"${chunks[i]}${i === chunks.length - 1 ? '' : ' '}"\n`));
+          await new Promise(resolve => setTimeout(resolve, 50));
+        }
+        controller.close();
+      },
     });
 
-    return result.toDataStreamResponse();
+    return new Response(customStream, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'x-vercel-ai-data-stream': 'v1',
+      },
+    });
   } catch (error) {
     console.error('Chat API Error:', error);
     return new Response(JSON.stringify({ error: 'Failed to generate response. Please try again later.' }), {
